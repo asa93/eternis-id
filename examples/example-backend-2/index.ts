@@ -21,7 +21,8 @@ app.listen(port, () => {
 })
 
 
-const { appId, appSecret, providerId } = credentials[0]
+const { appId, appSecret, providerId, provider } = credentials[2]
+
 
 app.get('/request', async (_, res: Response) => {
     try {
@@ -37,7 +38,7 @@ app.get('/request', async (_, res: Response) => {
         )
 
         const { requestUrl, statusUrl } = await reclaimClient.createVerificationRequest()
-        res.send({ reclaimUrl: requestUrl, statusUrl })
+        res.send({ provider, reclaimUrl: requestUrl, statusUrl })
     } catch (e: any) {
         res.status(400).send(e.toString())
     }
