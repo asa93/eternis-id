@@ -35,8 +35,10 @@ function App() {
   useEffect(() => {
     if (!statusUrl) return;
 
-    setInterval(async () => {
-      const response = await axios.get(statusUrl);
+    const intervalId = setInterval(getStatus, 10000);
+
+    async function getStatus() {
+      const response = await axios.get(statusUrl ?? "");
 
       const status = response?.data?.session?.status;
       const proofs = response?.data?.session?.proofs;
@@ -44,10 +46,12 @@ function App() {
       console.log("proof", proofs, proofs.length);
       setProofStatus(status);
 
-      if (!proofs.length) return;
+      if (!proofs[0]) return;
 
+      console.log("proof received!");
       setProof(proofs[0]);
-    }, 10000);
+      clearInterval(intervalId);
+    }
   }, [reclaimUrl]);
 
   const proveIt = async (e: any) => {
