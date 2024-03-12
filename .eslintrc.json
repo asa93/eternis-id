@@ -3,6 +3,8 @@
   "rules": {
     "no-console": 1,
     "indent" : "off",
-    "space-before-function-paren": "off"
+    "space-before-function-paren": "off",
+    "keyword-spacing": "warn",
+    "typescript-eslint/no-explicit-any": "off"
   }
 }
