@@ -76,14 +76,14 @@ contract Verifier {
         // TODO: your business logic upon success
         // verify proof.context is what you expect
 
-        uint identifier = uint(proof.signedClaim.claim.identifier);
-        require(
-            identifierToId[identifier] > 0,
-            "this identity already exists."
-        );
-        identifierToId[identifier] = userCount;
-        eternisId[userCount] = Identity(identifier, proof.claimInfo.context);
-        userCount++;
+        // uint identifier = uint(proof.signedClaim.claim.identifier);
+        // require(
+        //     identifierToId[identifier] > 0,
+        //     "this identity already exists."
+        // );
+        // identifierToId[identifier] = userCount;
+        // eternisId[userCount] = Identity(identifier, proof.claimInfo.context);
+        // userCount++;
 
         return "";
     }
