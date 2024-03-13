@@ -11,6 +11,8 @@ import { configz } from "./config";
 import { Account } from "./account";
 import { WalletOptions } from "./wallet-options";
 
+import { Verify } from "./verify";
+
 const queryClient = new QueryClient();
 
 const backendBaseUrl = process.env.REACT_APP_BACKEND_BASE_URL;
@@ -57,12 +59,10 @@ function App() {
       const status = response?.data?.session?.status;
       const proofs = response?.data?.session?.proofs;
 
-      console.log("proof", proofs, proofs.length);
       setProofStatus(status);
 
       if (!proofs[0]) return;
 
-      console.log("proof received!");
       setProof(proofs[0]);
       clearInterval(intervalId);
     }
@@ -79,13 +79,12 @@ function App() {
     setStatusUrl(response.data.statusUrl);
   };
 
-  console.log("proof2", proof);
-
   return (
     <WagmiProvider config={configz}>
       <QueryClientProvider client={queryClient}>
         <div className="App">
           <ConnectWallet />
+
           <header className="App-header">
             {proof && (
               <span>
@@ -94,6 +93,8 @@ function App() {
                 {proof?.extractedParameterValues?.CLAIM_DATA} <hr />
               </span>
             )}
+
+            {proof && <Verify proof={proof} />}
 
             {!reclaimUrl && (
               <div>
