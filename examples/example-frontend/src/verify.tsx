@@ -1,29 +1,18 @@
 import React, { useState } from "react";
 
-import { useReadContract, useAccount } from "wagmi";
+import {
+  useReadContract,
+  useAccount,
+  useWriteContract,
+  useWaitForTransactionReceipt,
+} from "wagmi";
 
-import { writeContract, simulateContract } from "@wagmi/core";
-
-import { attestorAbi, erc20Abi, reclaimAbi } from "./abis";
+import { reclaimAbi } from "./abis";
 import { polygonMumbai } from "wagmi/chains";
-
-import { configz } from "./config";
-
-import { Button } from "@mui/material";
-
-const attestorContract = {
-  address: "0x69FE941ee6c9aa317aBe776B005E43A332DB2Ffb",
-  abi: attestorAbi,
-} as const;
 
 const reclaimContract = {
   address: "0xd6534f52CEB3d0139b915bc0C3278a94687fA5C7",
   abi: reclaimAbi,
-} as const;
-
-const erc20Contract = {
-  address: "0x69FE941ee6c9aa317aBe776B005E43A332DB2Ffb",
-  abi: erc20Abi,
 } as const;
 
 interface Props {
@@ -31,34 +20,42 @@ interface Props {
 }
 export const Verify: React.FC<Props> = ({ proof }: Props) => {
   const { isConnected } = useAccount();
-  const [isVerified, setIsVerified] = useState<Boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+
+  const { data: hash, error, isPending, writeContract } = useWriteContract();
 
   const verify = async (e: any) => {
-    try {
-      const hash = await simulateContract(configz, {
-        ...reclaimContract,
-        functionName: "verifyProof",
-        chainId: polygonMumbai.id,
-        args: [transformProof(proof)],
-      });
-
-      if (hash) setIsVerified(true);
-    } catch (e: any) {
-      console.log(e.toString());
-      setError(e.toString);
-    }
+    writeContract({
+      ...reclaimContract,
+      functionName: "verifyProof",
+      chainId: polygonMumbai.id,
+      args: [transformProof(proof)],
+    });
   };
 
+  const { isLoading, isSuccess } = useWaitForTransactionReceipt({
+    hash,
+  });
+
+  console.log("hash", isPending, hash, error, isLoading, isSuccess);
+
   if (!isConnected) return null;
-  else if (isVerified)
+  else
     return (
-      <span>
-        ✅ Proof verified successfully <hr />
-      </span>
+      <>
+        {isSuccess && (
+          <span>
+            ✅ Proof verified successfully <hr />
+          </span>
+        )}
+        {error && <span> ❌ {error.message.slice(0, 100)}.. </span>}
+
+        {!hash && !error && (
+          <button onClick={verify} className="button">
+            {isPending ? "pending..." : "Verify proof"} {hash}{" "}
+          </button>
+        )}
+      </>
     );
-  else if (error) return <span> ❌ {error} </span>;
-  else return <button onClick={verify}>Verify proof</button>;
 };
 
 const transformProof = (proof: any) => {
