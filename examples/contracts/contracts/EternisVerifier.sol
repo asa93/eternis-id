@@ -97,7 +97,7 @@ contract Verifier {
             userCount++;
         }
 
-        //emit IdentityCreated(userCount);
+        emit IdentityCreated(userCount);
         return identifierToId[identifier];
     }
 
