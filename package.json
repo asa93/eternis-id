@@ -2,11 +2,11 @@
   "name": "eternis-id",
   "version": "1.0.0",
   "description": "proof-of-humanity protocol",
-  "main": "index.js",
   "scripts": {
-    "front" : "npm run start --workspace=frontend",
-    "back" : "npm run dev --workspace=backend",
-    "contracts:test": "npm run test --workspace=contracts"
+    "front": "npm run start --workspace=frontend",
+    "back": "npm run dev --workspace=backend",
+    "contracts:test": "npm run test --workspace=contracts",
+    "all:install": "npm install --worskpace=contracts && npm install --workspace=backend && npm install --workspace=frontend"
   },
   "repository": {
     "type": "git",
