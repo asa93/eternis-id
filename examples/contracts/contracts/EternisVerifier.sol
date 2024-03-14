@@ -54,7 +54,7 @@ contract Verifier {
 
     struct Identity {
         uint identifier; // related to the proof generated
-        string jurisdiction;
+        bytes8 jurisdiction;
     }
 
     mapping(uint => uint) public identifierToId;
@@ -69,28 +69,45 @@ contract Verifier {
     constructor() {
         // TODO: Replace with network you are deploying on
         reclaimAddress = address(Addresses.PLOYGON_MUMBAI_TESTNET);
+
+        //user count starts at one, so total users = userCount-1
+        unchecked {
+            userCount++;
+        }
     }
 
-    function verifyProof(
-        Reclaim.Proof memory proof
-    ) public view returns (string memory) {
+    function verifyProof(Reclaim.Proof memory proof) public returns (uint) {
+        //🚨 uncomment before deployment
         //Reclaim(reclaimAddress).verifyProof(proof);
-        // TODO: your business logic upon success
-        // verify proof.context is what you expect
 
-        // uint identifier = uint(proof.signedClaim.claim.identifier);
-        // require(
-        //     identifierToId[identifier] > 0,
-        //     "this identity already exists."
-        // );
-        // identifierToId[identifier] = userCount;
+        uint identifier = uint(proof.signedClaim.claim.identifier);
+        require(
+            identifierToId[identifier] == 0,
+            "this identity already exists"
+        );
 
-        // eternisId[userCount] = Identity(identifier, proof.claimInfo.context);
-        // userCount++;
+        identifierToId[identifier] = userCount;
+        eternisId[userCount] = Identity(
+            identifier,
+            decodeJuridictionid(proof.claimInfo.context)
+        );
+        unchecked {
+            userCount++;
+        }
 
-        return bytes8toString(decodeJuridictionid(proof.claimInfo.context));
+        return identifierToId[identifier];
     }
 
+    function totalUsers() public view returns (uint) {
+        return userCount - 1;
+    }
+
+    function getIdentity(uint id) public view returns (uint, string memory) {
+        return (
+            eternisId[id].identifier,
+            bytes8toString(eternisId[id].jurisdiction)
+        );
+    }
     function bytes8toString(bytes8 val) internal pure returns (string memory) {
         return string(abi.encodePacked(val));
     }
@@ -98,9 +115,9 @@ contract Verifier {
     function decodeJuridictionid(
         string memory context
     ) internal pure returns (bytes8) {
-        bytes memory juridictionId = new bytes(6);
+        bytes memory juridictionId = new bytes(8);
 
-        for (uint256 i; i < 6; ) {
+        for (uint256 i; i < 8; ) {
             juridictionId[i] = bytes(context)[42 + i];
             unchecked {
                 ++i;
