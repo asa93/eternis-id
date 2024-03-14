@@ -1,6 +1,6 @@
 # Eternis ID
 
-## Proof-of-humanity protocol.
+## Proof-of-humanity protocol
 
 Prove that you are a human and create your onchain eternid ID.
 
