@@ -84,15 +84,19 @@ contract Verifier {
         //     "this identity already exists."
         // );
         // identifierToId[identifier] = userCount;
+
         // eternisId[userCount] = Identity(identifier, proof.claimInfo.context);
         // userCount++;
 
-        return string(decodeJuridictionid(proof.claimInfo.context));
+        return bytes8toString(decodeJuridictionid(proof.claimInfo.context));
     }
 
+    function bytes8toString(bytes8 val) internal pure returns (string memory) {
+        string(abi.encodePacked(val));
+    }
     function decodeJuridictionid(
         string memory context
-    ) internal pure returns (bytes memory) {
+    ) internal pure returns (bytes8) {
         bytes memory juridictionId = new bytes(6);
 
         for (uint256 i; i < 6; ) {
@@ -101,6 +105,6 @@ contract Verifier {
                 ++i;
             }
         }
-        return juridictionId;
+        return bytes8(juridictionId);
     }
 }
