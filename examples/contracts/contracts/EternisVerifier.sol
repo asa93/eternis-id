@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.20;
 
-import "hardhat/console.sol";
+//import "hardhat/console.sol";
 
 library Addresses {
     address public constant BASE_MAINNET =
@@ -66,6 +66,8 @@ contract Verifier {
         Reclaim.SignedClaim signedClaim;
     }
 
+    event IdentityCreated(uint userCount);
+
     constructor() {
         // TODO: Replace with network you are deploying on
         reclaimAddress = address(Addresses.PLOYGON_MUMBAI_TESTNET);
@@ -95,6 +97,7 @@ contract Verifier {
             userCount++;
         }
 
+        //emit IdentityCreated(userCount);
         return identifierToId[identifier];
     }
 
