@@ -92,8 +92,9 @@ contract Verifier {
     }
 
     function bytes8toString(bytes8 val) internal pure returns (string memory) {
-        string(abi.encodePacked(val));
+        return string(abi.encodePacked(val));
     }
+
     function decodeJuridictionid(
         string memory context
     ) internal pure returns (bytes8) {
