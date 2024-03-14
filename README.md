@@ -1,16 +1,10 @@
-# Running the examples
+# Eternis ID
 
-## Build the template sdk
-
-```
-cd /template-client-sdk
-npm install
-npm run build
-```
+Proof-of-humanity app.
 
 ## Run the backend 
 ```
-cd example-backend
+cd backend
 ```
 ### Note your server IP
 ```
@@ -32,9 +26,11 @@ npm start
 ## Run the frontend
 (React project)
 ```
-cd example-frontend
-npm install
+cd frontend
+npm run dev
 ```
+note: if viem/wagmi cause issues, install them with --force
+
 ### Edit .env
 ```
 REACT_APP_BACKEND_BASE_URL=http://<ip from ifconfig>:8000
@@ -48,13 +44,3 @@ Open app on http://localhost:3000
 # Playing around
 You'll need a mobile device with Reclaim Wallet Mobile App installed
 Follow on screen instructions
-
-All the data and proofs are stored at `/tmp/databases.db`
-
-You can view the proofs and status of each form : 
-```
-$ sqlite3 /tmp/databases.db
-sqlite3> select * from submitted_links;
-```
-
-Proofs are updated in the DB only when submitted correctly from the app :)
