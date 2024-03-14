@@ -10,7 +10,6 @@ const MUMBAI_RPC_URL = process.env.MUMBAI_RPC_URL ?? ''
 const MATIC_RPC_URL = process.env.MATIC_RPC_URL ?? ''
 const ARBITRUM_RPC_URL = process.env.ARBITRUM_RPC_URL ?? ''
 
-console.log("MUMBAI_RPC_URL", MUMBAI_RPC_URL)
 const config: HardhatUserConfig = {
   solidity: { compilers: [{ version: '0.8.19' }, { version: '0.8.20' }] },
 

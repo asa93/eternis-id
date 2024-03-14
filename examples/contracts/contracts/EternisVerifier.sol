@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.20;
 
+import "hardhat/console.sol";
+
 library Addresses {
     address public constant BASE_MAINNET =
         0xACE04E6DeB9567C1B8F37D113F2Da9E690Fc128d;
@@ -71,8 +73,8 @@ contract Verifier {
 
     function verifyProof(
         Reclaim.Proof memory proof
-    ) public returns (string memory) {
-        Reclaim(reclaimAddress).verifyProof(proof);
+    ) public view returns (string memory) {
+        //Reclaim(reclaimAddress).verifyProof(proof);
         // TODO: your business logic upon success
         // verify proof.context is what you expect
 
@@ -85,6 +87,20 @@ contract Verifier {
         // eternisId[userCount] = Identity(identifier, proof.claimInfo.context);
         // userCount++;
 
-        return "";
+        return string(decodeJuridictionid(proof.claimInfo.context));
+    }
+
+    function decodeJuridictionid(
+        string memory context
+    ) internal pure returns (bytes memory) {
+        bytes memory juridictionId = new bytes(6);
+
+        for (uint256 i; i < 6; ) {
+            juridictionId[i] = bytes(context)[42 + i];
+            unchecked {
+                ++i;
+            }
+        }
+        return juridictionId;
     }
 }
