@@ -1,0 +1,26 @@
+{
+  "name": "eternis-id",
+  "version": "1.0.0",
+  "description": "proof-of-humanity protocol",
+  "main": "index.js",
+  "scripts": {
+    "front" : "npm run start --workspace=frontend",
+    "back" : "npm run dev --workspace=backend",
+    "contracts:test": "npm run test --workspace=contracts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asa93/eternis-id.git"
+  },
+  "author": "asa93",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asa93/eternis-id/issues"
+  },
+  "homepage": "https://github.com/asa93/eternis-id#readme",
+  "workspaces": [
+    "frontend",
+    "backend",
+    "contracts"
+  ]
+}
