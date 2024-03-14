@@ -3,6 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import express, { Express, Request, Response } from 'express'
 import { credentials } from './reclaim-credentials'
+import { Query } from 'pg'
 
 dotenv.config()
 const app: Express = express()
@@ -21,14 +22,23 @@ app.listen(port, () => {
 })
 
 
-const { appId, appSecret, providerId, provider } = credentials[2]
+const { appId, appSecret, providerId, provider, juridictionId } = credentials[0]
 
 
-app.get('/request', async (_, res: Response) => {
+app.get('/request', async (req: Request, res: Response) => {
+
+    const userAddress: string = req.query.userAddress as string
+
     try {
         const reclaimClient = new Reclaim.ProofRequest(
             appId //TODO: replace with your applicationI
         )
+
+        await reclaimClient.addContext(
+            '0x0',
+            juridictionId
+        )
+
         await reclaimClient.buildProofRequest(providerId)
 
         reclaimClient.setSignature(

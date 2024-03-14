@@ -121,7 +121,7 @@ contract Verifier {
         bytes memory juridictionId = new bytes(8);
 
         for (uint256 i; i < 8; ) {
-            juridictionId[i] = bytes(context)[42 + i];
+            juridictionId[i] = bytes(context)[39 + i];
             unchecked {
                 ++i;
             }
