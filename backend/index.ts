@@ -2,7 +2,7 @@ import { Reclaim } from '@reclaimprotocol/js-sdk'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import express, { Express, Request, Response } from 'express'
-import { credentials } from './reclaim-credentials'
+import { credentials } from './reclaim-providers'
 import { Query } from 'pg'
 
 dotenv.config()
@@ -22,8 +22,10 @@ app.listen(port, () => {
 })
 
 
-const { appId, appSecret, providerId, provider, juridictionId } = credentials[0]
+const { providerId, provider, juridictionId } = credentials[0]
 
+const APP_ID = process.env.APP_ID ?? ''
+const APP_SECRET = process.env.APP_SECRET ?? ''
 
 app.get('/request', async (req: Request, res: Response) => {
 
@@ -31,7 +33,7 @@ app.get('/request', async (req: Request, res: Response) => {
 
     try {
         const reclaimClient = new Reclaim.ProofRequest(
-            appId //TODO: replace with your applicationI
+            APP_ID
         )
 
         await reclaimClient.addContext(
@@ -43,7 +45,7 @@ app.get('/request', async (req: Request, res: Response) => {
 
         reclaimClient.setSignature(
             await reclaimClient.generateSignature(
-                appSecret //TODO : replace with your APP_SECRET
+                APP_SECRET
             )
         )
 
