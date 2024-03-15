@@ -1,11 +1,16 @@
 {
-  "name": "contracts",
+  "name": "@eternis/contracts",
   "scripts": {
-    "test" : "npx hardhat test"
+    "test": "npx hardhat test"
   },
+  "main": "index.ts",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^3.0.0",
-    "hardhat": "^2.21.0"
+    "@typechain/ethers-v6": "^0.4.3",
+    "@typechain/hardhat": "^9.1.0",
+    "hardhat": "^2.21.0",
+    "typechain": "^8.3.2",
+    "typescript": "^5.4.2"
   },
   "dependencies": {
     "dotenv": "^16.4.5"
