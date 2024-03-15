@@ -7,7 +7,7 @@ import {
   useWaitForTransactionReceipt,
 } from "wagmi";
 
-import { reclaimContract, verifierContract } from "./contracts";
+import { contracts } from "./contracts";
 import { polygonMumbai } from "wagmi/chains";
 
 interface Props {
@@ -19,7 +19,7 @@ export const Verify: React.FC<Props> = ({ proof }: Props) => {
   const { data: hash, error, isPending, writeContract } = useWriteContract();
 
   const { data } = useReadContract({
-    ...verifierContract,
+    ...contracts.verifierContract,
     functionName: "totalUsers",
   });
 
@@ -27,7 +27,7 @@ export const Verify: React.FC<Props> = ({ proof }: Props) => {
     console.log("proof2", transformProof(proof));
 
     writeContract({
-      ...verifierContract,
+      ...contracts.verifierContract,
       functionName: "verifyProof",
       chainId: polygonMumbai.id,
       args: [transformProof(proof2)],

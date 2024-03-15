@@ -1,5 +1,5 @@
 {
-  "name": "@eternis/contracts",
+  "name": "@eternis-id/contracts",
   "scripts": {
     "test": "npx hardhat test"
   },

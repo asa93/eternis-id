@@ -2,13 +2,11 @@ import { Reclaim } from '@reclaimprotocol/js-sdk'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import express, { Express, Request, Response } from 'express'
-import { credentials } from './reclaim-providers'
-import { Query } from 'pg'
+import { providers } from './reclaim-providers'
 
 dotenv.config()
 const app: Express = express()
 const port = process.env.PORT || 8000
-//const callbackUrl = process.env.CALLBACK_URL + '/callback/'
 
 app.use(express.json())
 app.use(cors())
@@ -22,7 +20,7 @@ app.listen(port, () => {
 })
 
 
-const { providerId, provider, juridictionId } = credentials[0]
+const { providerId, provider, juridictionId } = providers[0]
 
 const APP_ID = process.env.APP_ID ?? ''
 const APP_SECRET = process.env.APP_SECRET ?? ''

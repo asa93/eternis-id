@@ -5,7 +5,7 @@ type ReclaimProvider = {
     juridictionId: string
 }
 
-export const credentials: ReclaimProvider[] = [
+export const providers: ReclaimProvider[] = [
     {
         provider: 'amazon',
         providerId: '5f83ab14-9656-4552-9fbc-482e07022766',
