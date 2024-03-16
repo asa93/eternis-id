@@ -19,15 +19,16 @@ export const Verify: React.FC<Props> = ({ proof }: Props) => {
   const { data: hash, error, isPending, writeContract } = useWriteContract();
 
   const { data } = useReadContract({
-    ...contracts.verifierContract,
+    ...contracts.verifier,
     functionName: "totalUsers",
   });
 
+  console.log("contracts", contracts);
   const verify = async (e: any) => {
-    console.log("proof2", transformProof(proof));
+    console.log("proof2", transformProof(proof2));
 
     writeContract({
-      ...contracts.verifierContract,
+      ...contracts.verifier,
       functionName: "verifyProof",
       chainId: polygonMumbai.id,
       args: [transformProof(proof2)],

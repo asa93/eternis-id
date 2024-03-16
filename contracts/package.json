@@ -1,9 +1,10 @@
 {
   "name": "@eternis-id/contracts",
   "scripts": {
-    "test": "npx hardhat test"
+    "test": "npx hardhat test",
+    "type": "npx hardhat typechain"
   },
-  "main": "index.ts",
+  "main": "./out/index.js",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^3.0.0",
     "@typechain/ethers-v6": "^0.4.3",

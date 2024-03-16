@@ -1,13 +1,15 @@
 
-import { Verifier__factory } from "../../typechain-types"
+import { Verifier__factory } from "@eternis-id/contracts"
 
 type Contract = {
 	abi: any
 	address: `0x${string}`
 }
 interface Contracts {
-	[key: string]: Contract;
+	verifier: Contract;
+	reclaim: Contract;
 }
+
 
 
 const reclaimAbi = [
