@@ -31,7 +31,7 @@ export const Verify: React.FC<Props> = ({ proof }: Props) => {
       ...contracts.verifier,
       functionName: "verifyProof",
       chainId: polygonMumbai.id,
-      args: [transformProof(proof2)],
+      args: [transformProof(proof)],
     });
   };
 

@@ -94,7 +94,7 @@ function App() {
               </span>
             )}
 
-            {<Verify proof={proof} />}
+            {proof && <Verify proof={proof} />}
 
             {!reclaimUrl && (
               <div>
