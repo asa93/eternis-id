@@ -12,6 +12,7 @@
   "author": "asa93",
   "license": "ISC",
   "dependencies": {
+    "@eternis/typechain-types": "file:../typechain-types",
     "@reclaimprotocol/js-sdk": "^0.1.5",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",

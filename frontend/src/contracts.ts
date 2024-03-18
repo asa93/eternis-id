@@ -1,5 +1,5 @@
 
-import { Verifier__factory } from "@eternis-id/contracts"
+import { Verifier__factory } from "@eternis-id/typechain-types"
 
 type Contract = {
 	abi: any
