@@ -2,8 +2,12 @@
 
 ## Proof-of-humanity protocol
 
-Prove that you are a human and create your onchain eternid ID.
+Prove that you are a human and create your onchain eternid ID, leveraging Zero-knowledge technology.
 
+## Install 
+```
+$npm run all:install
+```
 
 ## Run the backend 
 
@@ -19,23 +23,17 @@ CALLBACK_URL=http://<ip from ifconfig>:8000
 ```
 ### Run server
 ```
-cd backend
-npm install
-cd ..
 npm run back
 ```
 
 ## Run the frontend
 
-### Edit `frontend.env`
+### Edit `frontend/.env`
 ```
 REACT_APP_BACKEND_BASE_URL=http://<ip from ifconfig>:8000
 ```
 ### Run app server
 ```
-cd frontend
-npm install
-cd ..
 npm run front
 ```
 note: if viem/wagmi cause issues, install them with --force
