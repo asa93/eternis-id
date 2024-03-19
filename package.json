@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "proof-of-humanity protocol",
   "scripts": {
-    "front": "npm run start --workspace=frontend",
+    "front": "npx serve -s ./frontend/build",
+    "front:dev": "npm run start  --workspace=frontend",
     "front:build": "npm run build --workspace=backend",
     "back": "npm run dev --workspace=backend",
     "back:build": "npm run build --workspace=backend",
